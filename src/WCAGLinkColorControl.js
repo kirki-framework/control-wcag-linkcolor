@@ -178,7 +178,11 @@ const WCAGLinkColorControl = wp.customize.Control.extend( {
 				// If auto or recommended mode, change the active color.
 				if ( 'auto' === control.getMode() || 'recommended' === control.getMode() ) {
 					const val = control.getAutoColor( parseInt( control.getHue(), 10 ), true );
+					const noChange = val === control.setting.get();
 					control.setting.set( val );
+					if ( noChange ) {
+						control.renderContent();
+					}
 				} else {
 					control.renderContent();
 				}
@@ -195,7 +199,11 @@ const WCAGLinkColorControl = wp.customize.Control.extend( {
 					// If auto or recommended mode, change the active color.
 					if ( 'auto' === control.getMode() || 'recommended' === control.getMode() ) {
 						const val = control.getAutoColor( parseInt( control.getHue(), 10 ), true );
+						const noChange = val === control.setting.get();
 						control.setting.set( val );
+						if ( noChange ) {
+							control.renderContent();
+						}
 					} else {
 						control.renderContent();
 					}
