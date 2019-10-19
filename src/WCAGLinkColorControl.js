@@ -424,7 +424,28 @@ const WCAGLinkColorControl = wp.customize.Control.extend( {
 		const saturationSteps = ( control.params.choices.saturationSteps ) ? ( control.params.choices.lightnessSteps ) : [ 40, 45, 50, 55, 60, 65, 67.5, 70, 72.5, 75, 77.5, 80, 82.5, 85, 87.5, 90, 92.5, 95, 97.5, 100 ];
 		const hue = ( 'undefined' !== typeof checkHue ) ? parseInt( checkHue ) : Color( control.setting.get() ).h();
 
+		const getForcedBGContrast = ( contrast ) => {
+			let color = Color( {
+				h: hue,
+				s: control.params.choices.forceSaturation || 60,
+				l: 50
+			} ).getReadableContrastingColor( backgroundColor, contrast );
+			return {
+				color: color,
+				contrastBackground: color.getDistanceLuminosityFrom( backgroundColor ),
+				contrastText: color.getDistanceLuminosityFrom( textColor ),
+				score: control.getConstrastScore(
+					color.getDistanceLuminosityFrom( backgroundColor ),
+					color.getDistanceLuminosityFrom( textColor )
+				)
+			};
+		}
+
 		control.recommendedColors = [];
+
+		// Add the forced colors.
+		control.recommendedColors.push( getForcedBGContrast( 7 ) );
+		control.recommendedColors.push( getForcedBGContrast( 4.5 ) );
 
 		lightnessSteps.forEach( function( lightness ) {
 			saturationSteps.forEach( function( saturation ) {
@@ -495,6 +516,13 @@ const WCAGLinkColorControl = wp.customize.Control.extend( {
 		control.recommendedColors.sort( function( a, b ) {
 			return a.score - b.score;
 		} );
+
+		// Inject forced items if needed.
+		if ( 'AAA' === control.params.choices.forceCompliance ) {
+			control.recommendedColors.unshift( getForcedBGContrast( 7 ) );
+		} else if ( 'AA' === control.params.choices.forceCompliance ) {
+			control.recommendedColors.unshift( getForcedBGContrast( 4.5 ) );
+		}
 
 		return control.recommendedColors;
 	},
