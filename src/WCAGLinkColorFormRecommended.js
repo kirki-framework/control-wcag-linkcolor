@@ -25,9 +25,9 @@ const WCAGLinkColorFormRecommended = ( props ) => {
 			},
 
 			pickerWrapper: {
-				'max-height': '200px',
-				'overflow-x': 'hidden',
-				'overflow-y': 'auto'
+        maxHeight: '200px',
+				overflowX: 'hidden',
+				overflowY: 'auto'
 			}
 		}
 	} );
