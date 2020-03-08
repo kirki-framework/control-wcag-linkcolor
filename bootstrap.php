@@ -21,26 +21,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_filter(
-    'kirki_control_types',
-
-    /**
+	'kirki_control_types',
+	/**
 	 * Registers the control with Kirki.
 	 *
 	 * @since 1.0
 	 * @param array $controls An array of controls registered with the Kirki Framework.
 	 * @return array
 	 */
-    function( $controls ) {
-        require_once __DIR__ . '/src/Control/WCAGLinkColor.php';
+	function( $controls ) {
+		require_once __DIR__ . '/src/Control/WCAGLinkColor.php';
 		$controls['kirki-wcag-lc'] = '\WPLemon\Control\WCAGLinkColor';
 		return $controls;
-    }
+	}
 );
 
 add_action(
-    'customize_register',
-
-    /**
+	'customize_register',
+	/**
 	 * Registers the control type and make it eligible for
 	 * JS templating in the Customizer.
 	 *
@@ -49,13 +47,13 @@ add_action(
 	 * @return void
 	 */
 	function( $wp_customize ) {
-        require_once __DIR__ . '/src/Control/WCAGLinkColor.php';
-        $wp_customize->register_control_type( '\WPLemon\Control\WCAGLinkColor' );
+		require_once __DIR__ . '/src/Control/WCAGLinkColor.php';
+		$wp_customize->register_control_type( '\WPLemon\Control\WCAGLinkColor' );
 
-        // Add class aliases for backwards compatibility.
-        class_alias( '\WPLemon\Control\WCAGLinkColor', 'Kirki_WCAG_Link_Color' );
-    },
-    0
+		// Add class aliases for backwards compatibility.
+		class_alias( '\WPLemon\Control\WCAGLinkColor', 'Kirki_WCAG_Link_Color' );
+	},
+	0
 );
 
 /**
@@ -64,17 +62,19 @@ add_action(
  * @since 2.0
  */
 spl_autoload_register(
-    /**
-     * Autoload the class.
-     *
-     * @param string $class The class-name.
-     */
+	/**
+	 * Autoload the class.
+	 *
+	 * @param string $class The class-name.
+	 */
 	function( $class ) {
-        if ( 'WPLemon\Field\WCAGLinkColor' === $class || '\WPLemon\Field\WCAGLinkColor' === $class ) {
-            require_once __DIR__ . '/src/Field/WCAGLinkColor.php';
-        }
-        if ( 'WPLemon\Control\WCAGLinkColor' === $class || '\WPLemon\Control\WCAGLinkColor' === $class ) {
-            require_once __DIR__ . '/src/Control/WCAGLinkColor.php';
-        }
-	}, false, true
+		if ( 'WPLemon\Field\WCAGLinkColor' === $class || '\WPLemon\Field\WCAGLinkColor' === $class ) {
+			require_once __DIR__ . '/src/Field/WCAGLinkColor.php';
+		}
+		if ( 'WPLemon\Control\WCAGLinkColor' === $class || '\WPLemon\Control\WCAGLinkColor' === $class ) {
+			require_once __DIR__ . '/src/Control/WCAGLinkColor.php';
+		}
+	},
+	false,
+	true
 );

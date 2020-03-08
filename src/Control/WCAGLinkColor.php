@@ -158,27 +158,30 @@ class WCAGLinkColor extends \WP_Customize_Control {
 
 		$strings = ( isset( $this->choices['18n'] ) ) ? $this->choices['18n'] : [];
 
-		$this->json['i18n'] = wp_parse_args( $strings,[
-			'auto'        => esc_html__( 'Auto', 'kirki-pro' ),
-			'recommended' => esc_html__( 'Recommended', 'kirki-pro' ),
-			'custom'      => esc_html__( 'Custom', 'kirki-pro' ),
-			'a11yRating'  => esc_html__( 'WCAG Rating', 'kirki-pro' ),
-			'contrastBg'  => esc_html__( 'Contrast with background', 'kirki-pro' ),
-			'contrastSt'  => esc_html__( 'Contrast with surrounding text', 'kirki-pro' ),
-		] );
+		$this->json['i18n'] = wp_parse_args(
+			$strings,
+			[
+				'auto'        => esc_html__( 'Auto', 'kirki-pro' ),
+				'recommended' => esc_html__( 'Recommended', 'kirki-pro' ),
+				'custom'      => esc_html__( 'Custom', 'kirki-pro' ),
+				'a11yRating'  => esc_html__( 'WCAG Rating', 'kirki-pro' ),
+				'contrastBg'  => esc_html__( 'Contrast with background', 'kirki-pro' ),
+				'contrastSt'  => esc_html__( 'Contrast with surrounding text', 'kirki-pro' ),
+			]
+		);
 
 		// Start compatibility with Kirki v3.0 API.
-		$this->json['default'] = ( isset( $this->default ) ) ? $this->default : $this->setting->default;
-		$this->json['output'] = $this->output;
-		$this->json['value'] = $this->value();
-		$this->json['choices'] = $this->choices;
-		$this->json['link'] = $this->get_link();
-		$this->json['id'] = $this->id;
+		$this->json['default']         = ( isset( $this->default ) ) ? $this->default : $this->setting->default;
+		$this->json['output']          = $this->output;
+		$this->json['value']           = $this->value();
+		$this->json['choices']         = $this->choices;
+		$this->json['link']            = $this->get_link();
+		$this->json['id']              = $this->id;
 		$this->json['kirkiOptionType'] = $this->option_type;
 		$this->json['kirkiOptionName'] = $this->option_name;
-		$this->json['css-var'] = $this->css_vars;
-		$this->json['parent_setting'] = $this->parent_setting;
-		$this->json['wrapper_atts'] = $this->wrapper_atts;
+		$this->json['css-var']         = $this->css_vars;
+		$this->json['parent_setting']  = $this->parent_setting;
+		$this->json['wrapper_atts']    = $this->wrapper_atts;
 		// End compatibility with Kirki 3.0 API.
 	}
 
